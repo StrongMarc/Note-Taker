@@ -24,6 +24,7 @@ function handleRequest(request, response) {
     }
 }
 
+// displays index.html file
 function displayIndex(response) {
   filename = "./public/index.html";
   fs.readFile(filename, "utf8", function(error, data) {
@@ -41,6 +42,7 @@ function displayIndex(response) {
   });
 }
 
+// displays notes.html file
 function displayNotes(response) {
   filename = "./public/notes.html";
   fs.readFile(filename, "utf8", function(error, data) {
