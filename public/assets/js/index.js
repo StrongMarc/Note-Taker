@@ -9,6 +9,7 @@ var activeNote = {};
 
 // A function for getting all notes from the db
 var getNotes = function() {
+  console.log("hi-get")
   return $.ajax({
     url: "/api/notes",
     method: "GET"
@@ -17,7 +18,7 @@ var getNotes = function() {
 
 // A function for saving a note to the db
 var saveNote = function(note) {
-   console.log("hi1")
+   console.log("hi-save")
   return $.ajax({
     url: "/api/notes",
     data: note,
@@ -27,6 +28,7 @@ var saveNote = function(note) {
 
 // A function for deleting a note from the db
 var deleteNote = function(id) {
+  console.log("hi-del")
   return $.ajax({
     url: "api/notes/" + id,
     method: "DELETE"
@@ -36,12 +38,13 @@ var deleteNote = function(id) {
 // If there is an activeNote, display it, otherwise render empty inputs
 var renderActiveNote = function() {
   $saveNoteBtn.hide();
-
+  
   if (activeNote.id) {
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.title);
     $noteText.val(activeNote.text);
+    
   } else {
     $noteTitle.attr("readonly", false);
     $noteText.attr("readonly", false);
@@ -56,7 +59,7 @@ var handleNoteSave = function() {
     title: $noteTitle.val(),
     text: $noteText.val()
   };
-  console.log("hi2")
+  console.log("hi1")
   saveNote(newNote).then(function(data) {
     getAndRenderNotes();
     renderActiveNote();
@@ -108,6 +111,7 @@ var handleRenderSaveBtn = function() {
 var renderNoteList = function(notes) {
   $noteList.empty();
   console.log("list");
+  console.log(notes);
   var noteListItems = [];
 
   for (var i = 0; i < notes.length; i++) {

@@ -31,14 +31,10 @@ function readJSON (){
  });  // end fs.readFile
 }
 
-
+function start(){
 // route to return server html to user
 app.get("/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "./public/notes.html"));
-  });
-
-app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "./public/index.html"));
+  res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 
 // route to post and append to db.JSON
@@ -56,25 +52,45 @@ app.post("/api/notes", function(req, res) {
   res.end();
 });
 
+// function to write JSON
 function writeToJSON(filename, data){
   // code for writing db.JSON
- fs.writeFile(filename, data, function(err){
-   if(err){
-     throw err;
-   }
-   console.log("Successfuly wrote to db.JSON")
+  fs.writeFile(filename, data, function(err){
+    if(err){
+      throw err;
+    }
+    console.log("Successfuly wrote to db.JSON")
  });
 }
 
+// AJAX to db.JSON
 app.get("/api/notes", function(req, res) {
     console.log("hello3")
     console.log(noteArray)
     return res.json(noteArray);
-  });
+});
 
 
+// app.delete("/api/notes/:id", function(req, res) {
+//   var removeNote = req.params.id;
+
+//   console.log(removeNote);
+
+//   
+//     }
+//   }
+
+//   return res.json(false);
+// });
+
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/index.html"));
+});
 
 // listen on the port
 app.listen(PORT, function() {
     console.log("App listening on: http://localhost:" + PORT + "/");
   });
+}
+
+start();
