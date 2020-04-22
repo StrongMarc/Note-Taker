@@ -13,7 +13,7 @@ app.use(express.json());
 // Tutor Maria Wong mentioned this code is necessary to show save button
 app.use(express.static("public"));
 
-var noteArray = readJSON();
+var id = readJSON();
 
 // read db.JSON
 function readJSON (){
@@ -24,14 +24,14 @@ function readJSON (){
     }
 
     // make db.JSON in to obj
-    noteArray = JSON.parse(data)
+    id = JSON.parse(data)
     console.log("hello1")
-    console.log(noteArray)
+    console.log(id)
   
  });  // end fs.readFile
 }
 
-function start(){
+
 // route to return server html to user
 app.get("/notes", function(req, res) {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
@@ -43,10 +43,10 @@ app.post("/api/notes", function(req, res) {
   console.log("hello3")
   console.log(newNote);
 
-  noteArray.push(newNote);
+  id.push(newNote);
   console.log("here is the:")
-  console.log(noteArray)
-  noteStr = JSON.stringify(noteArray);
+  console.log(id)
+  noteStr = JSON.stringify(id);
   let filename = "./db/db.json"
   writeToJSON(filename, noteStr)
   res.end();
@@ -66,22 +66,32 @@ function writeToJSON(filename, data){
 // AJAX to db.JSON
 app.get("/api/notes", function(req, res) {
     console.log("hello3")
-    console.log(noteArray)
-    return res.json(noteArray);
+    console.log(id)
+    return res.json(id);
 });
 
 
-// app.delete("/api/notes/:id", function(req, res) {
-//   var removeNote = req.params.id;
+app.delete("/api/notes/:id", function(req, res) {
+  var note = req.params.id;
 
-//   console.log(removeNote);
+  console.log(note);
+  noteStr = JSON.stringify(note);
+  console.log(noteStr);
+  console.log(id);
+  // var removeNote = id.title.indexOf(noteId);
+  // console.log(removeNote);
+  for (var i = 0; i < id.length; i++) {
+    if (note === id[i].title) {
+      removeNote = id.splice(i, 1);
+      noteIndex = id.indexOf(removeNote)
+      console.log(i)
+      console.log(removeNote);
+      return res.json(removeNote);
+    }
+  }
 
-//   
-//     }
-//   }
-
-//   return res.json(false);
-// });
+  return res.send("No note found");
+});
 
 app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./public/index.html"));
@@ -90,7 +100,4 @@ app.get("*", function(req, res) {
 // listen on the port
 app.listen(PORT, function() {
     console.log("App listening on: http://localhost:" + PORT + "/");
-  });
-}
-
-start();
+});

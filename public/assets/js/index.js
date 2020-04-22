@@ -40,6 +40,7 @@ var renderActiveNote = function() {
   $saveNoteBtn.hide();
   
   if (activeNote.id) {
+    console.log(activeNote.id)
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.title);
@@ -70,13 +71,17 @@ var handleNoteSave = function() {
 var handleNoteDelete = function(event) {
   // prevents the click listener for the list from being called when the button inside of it is clicked
   event.stopPropagation();
-
+  console.log(this)
   var note = $(this)
     .parent(".list-group-item")
     .data();
-
+  console.log(note)
+ note.id = note.title
+  console.log(activeNote.id)
+  console.log(note.id)
   if (activeNote.id === note.id) {
     activeNote = {};
+    console.log(activeNote)
   }
 
   deleteNote(note.id).then(function() {
