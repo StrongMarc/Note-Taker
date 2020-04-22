@@ -74,19 +74,18 @@ app.get("/api/notes", function(req, res) {
 app.delete("/api/notes/:id", function(req, res) {
   var note = req.params.id;
 
-  console.log(note);
-  noteStr = JSON.stringify(note);
-  console.log(noteStr);
-  console.log(id);
-  // var removeNote = id.title.indexOf(noteId);
-  // console.log(removeNote);
   for (var i = 0; i < id.length; i++) {
     if (note === id[i].title) {
-      removeNote = id.splice(i, 1);
-      noteIndex = id.indexOf(removeNote)
+      // removeNote = id.splice(i, 1);
+      id.splice(i, 1);
+  
       console.log(i)
-      console.log(removeNote);
-      return res.json(removeNote);
+    
+      console.log(id);
+      idStr = JSON.stringify(id);
+      let filename = "./db/db.json"
+      writeToJSON(filename, idStr)
+      return res.json(id);
     }
   }
 
