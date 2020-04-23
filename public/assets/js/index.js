@@ -28,7 +28,8 @@ var saveNote = function(note) {
 
 // A function for deleting a note from the db
 var deleteNote = function(id) {
-  console.log("hi-del")
+  console.log("hi-del-on31")
+  console.log(id)
   return $.ajax({
     url: "api/notes/" + id,
     method: "DELETE"
@@ -38,9 +39,8 @@ var deleteNote = function(id) {
 // If there is an activeNote, display it, otherwise render empty inputs
 var renderActiveNote = function() {
   $saveNoteBtn.hide();
-  
-  if (activeNote.id) {
     console.log(activeNote.id)
+  if (activeNote.id) {
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.title);
@@ -60,7 +60,7 @@ var handleNoteSave = function() {
     title: $noteTitle.val(),
     text: $noteText.val()
   };
-  console.log("hi1")
+  console.log("hi1-20")
   saveNote(newNote).then(function(data) {
     getAndRenderNotes();
     renderActiveNote();
@@ -93,6 +93,7 @@ var handleNoteDelete = function(event) {
 // Sets the activeNote and displays it
 var handleNoteView = function() {
   activeNote = $(this).data();
+  console.log(activeNote)
   renderActiveNote();
 };
 
@@ -121,7 +122,8 @@ var renderNoteList = function(notes) {
 
   for (var i = 0; i < notes.length; i++) {
     var note = notes[i];
-
+    console.log(note)
+    note.id = i;
     var $li = $("<li class='list-group-item'>").data(note);
     var $span = $("<span>").text(note.title);
     var $delBtn = $(
@@ -137,14 +139,14 @@ var renderNoteList = function(notes) {
 
 // Gets notes from the db and renders them to the sidebar
 var getAndRenderNotes = function() {
-  console.log("hi3")
+  console.log("hi3-11")
   return getNotes().then(function(data) {
     renderNoteList(data);
   });
 };
 
 $saveNoteBtn.on("click", function() {
-  console.log("hi4")
+  console.log("hi4-57")
   handleNoteSave();
   
 });
