@@ -9,7 +9,6 @@ var activeNote = {};
 
 // A function for getting all notes from the db
 var getNotes = function() {
-  console.log("hi-get")
   return $.ajax({
     url: "/api/notes",
     method: "GET"
@@ -18,7 +17,6 @@ var getNotes = function() {
 
 // A function for saving a note to the db
 var saveNote = function(note) {
-   console.log("hi-save")
   return $.ajax({
     url: "/api/notes",
     data: note,
@@ -28,8 +26,6 @@ var saveNote = function(note) {
 
 // A function for deleting a note from the db
 var deleteNote = function(id) {
-  console.log("hi-del-on31")
-  console.log(id)
   return $.ajax({
     url: "api/notes/" + id,
     method: "DELETE"
@@ -39,7 +35,7 @@ var deleteNote = function(id) {
 // If there is an activeNote, display it, otherwise render empty inputs
 var renderActiveNote = function() {
   $saveNoteBtn.hide();
-    console.log(activeNote.id)
+
   if (activeNote.id) {
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
@@ -60,7 +56,7 @@ var handleNoteSave = function() {
     title: $noteTitle.val(),
     text: $noteText.val()
   };
-  console.log("hi1-20")
+ 
   saveNote(newNote).then(function(data) {
     getAndRenderNotes();
     renderActiveNote();
@@ -71,17 +67,15 @@ var handleNoteSave = function() {
 var handleNoteDelete = function(event) {
   // prevents the click listener for the list from being called when the button inside of it is clicked
   event.stopPropagation();
-  console.log(this)
+
   var note = $(this)
     .parent(".list-group-item")
     .data();
-  console.log(note)
- note.id = note.title
-  console.log(activeNote.id)
-  console.log(note.id)
+  
+  note.id = note.title
+  
   if (activeNote.id === note.id) {
     activeNote = {};
-    console.log(activeNote)
   }
 
   deleteNote(note.id).then(function() {
@@ -93,7 +87,6 @@ var handleNoteDelete = function(event) {
 // Sets the activeNote and displays it
 var handleNoteView = function() {
   activeNote = $(this).data();
-  console.log(activeNote)
   renderActiveNote();
 };
 
@@ -116,14 +109,11 @@ var handleRenderSaveBtn = function() {
 // Render's the list of note titles
 var renderNoteList = function(notes) {
   $noteList.empty();
-  console.log("list");
-  console.log(notes);
   var noteListItems = [];
 
   for (var i = 0; i < notes.length; i++) {
     var note = notes[i];
-    console.log(note)
-    note.id = i;
+    note.id = i;  // add id property to note object
     var $li = $("<li class='list-group-item'>").data(note);
     var $span = $("<span>").text(note.title);
     var $delBtn = $(

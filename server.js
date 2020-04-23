@@ -25,8 +25,6 @@ function readJSON (){
 
     // make db.JSON in to obj
     id = JSON.parse(data)
-    console.log("hello1read")
-    console.log(id)
   
  });  // end fs.readFile
 }
@@ -40,15 +38,11 @@ app.get("/notes", function(req, res) {
 // route to post and append to db.JSON
 app.post("/api/notes", function(req, res) {
   var newNote = req.body;
-  console.log("hello2add")
-  console.log(newNote);
-
+  
   id.push(newNote);
-  console.log("here is the:")
-  console.log(id)
-  noteStr = JSON.stringify(id);
+  noteStr = JSON.stringify(id);  // turn id to string
   let filename = "./db/db.json"
-  writeToJSON(filename, noteStr)
+  writeToJSON(filename, noteStr);
   res.end();
 });
 
@@ -65,8 +59,6 @@ function writeToJSON(filename, data){
 
 // AJAX to db.JSON
 app.get("/api/notes", function(req, res) {
-    console.log("hello3ajax")
-    console.log(id)
     return res.json(id);
 });
 
@@ -76,13 +68,10 @@ app.delete("/api/notes/:id", function(req, res) {
 
   for (var i = 0; i < id.length; i++) {
     if (note === id[i].title) {
-      // removeNote = id.splice(i, 1);
+      // remove note object from array
       id.splice(i, 1);
   
-      console.log(i)
-    
-      console.log(id);
-      idStr = JSON.stringify(id);
+      idStr = JSON.stringify(id); // turn id to string
       let filename = "./db/db.json"
       writeToJSON(filename, idStr)
       return res.json(id);
