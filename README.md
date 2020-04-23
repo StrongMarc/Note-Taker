@@ -1,4 +1,4 @@
-# Note-Takerth
+# Note-Taker
 Create note-taker app that displays a list of notes.  Implamentation was by the command line terminal as follows:
 1. Initially display index.html
 2. Click the "Get Started button" takes you to the notes.html page, you can return by the Nav-bar "Note Taker" button
