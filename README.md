@@ -5,3 +5,7 @@ Create note-taker app that displays a list of notes.  Implamentation was by the 
 3. Note Taker will display a stored list of notes on the left side.  Clicking the listed item will centrally display the Note and text.  An option to delect the note is available with click of trash can button icon.
 4. Upper rightside of nav-bar displays a pencil to clear the centrally located note.
 5. Entering new note text in the Title and text area opens the save button which will add to the notes display list.
+
+## Demo Video
+
+https://drive.google.com/file/d/1hOnmQwpzCBIr3f9Ym9MODC8WoegdU5bC/view
