@@ -9,3 +9,5 @@ Create note-taker app that displays a list of notes.  Implamentation was by the 
 ## Demo Video
 
 https://drive.google.com/file/d/1hOnmQwpzCBIr3f9Ym9MODC8WoegdU5bC/view
+
+![Image of Note-Taker](public/assets/images/noteTaker.PNG)
